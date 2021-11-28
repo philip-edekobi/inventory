@@ -10,23 +10,33 @@ const login = (req, res) => {
 }
 
 const addCategory = (req, res) => {
-
+    Category.create(req.body)
+        .then(result => res.status(200).json({ result }))
+        .catch(err => res.status(500).json( {msg: err}));
 }
 
 const getCategories = (req, res) => {
-    res.status(200).send("HELLOOO");
+    Category.find({})
+    .then(result => res.status(200).json({ result }))
+    .catch(err => res.status(404).json({error: err}));
 }
 
 const updateCategory = (req, res) => {
-    
+    Category.findOneAndUpdate({ name: req.params.name },  req.body, {runValidators: true, new: true})
+        .then(result => res.status(200).json({ result }))
+        .catch(err => res.status(404).json({error: err}));
 }
 
 const deleteCategory = (req, res) => {
-    
+    Category.findOneAndDelete({ name: req.params.name })
+    .then(result => res.status(200).json({ result }))
+    .catch(err => res.status(404).json({error: err}));
 }
 
 const getCustomers = (req, res) => {
-    
+    Customer.find({})
+        .then(result => res.status(200).json({ result }))
+        .catch(err => res.status(404).json({error: err}));
 }
 
 module.exports = {
