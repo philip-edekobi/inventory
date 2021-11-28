@@ -7,7 +7,7 @@ const {
     updateCategory,
     deleteCategory,
     getCustomers,
-} = require("../controllers/admin.js").default;
+} = require("../controllers/admin.js");
 
 router.get('/:username/:password', login);
 
