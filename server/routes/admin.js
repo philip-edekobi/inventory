@@ -11,7 +11,9 @@ const {
 
 router.get('/:username/:password', login);
 
-router.get('/', getCategories, getCustomers);
+router.get('/', getCategories);
+
+router.get("/users", getCustomers);
 
 router.post('/', addCategory);
 

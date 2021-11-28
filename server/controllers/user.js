@@ -19,8 +19,15 @@ const getAllProducts = (req, res) => {
         .catch(err => res.status(500).json({ error: err}));
 }
 
+const signup = (req, res) => {
+    Customer.create(req.body)
+        .then(result => res.status(200).json({ result }))
+        .catch(err => res.status(500).json( {msg: err}));
+}
+
 module.exports = {
     login,
+    signup,
     buyProduct,
     getAllProducts,
 }
