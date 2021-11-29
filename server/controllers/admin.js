@@ -1,49 +1,41 @@
-const Category = require("../models/Category.js");
-const Customer = require("../models/Customer.js");
+const Product = require("../models/Product");
+const Log = require("../models/Log");
 
-const login = (req, res) => {
-    if(req.params.username === process.env.admin_username && req.params.password === process.env.admin_password ){
-        res.status(200).json({ login: true });
-    } else {
-        res.status(401).json({ login: false});
-    }
-}
-
-const addCategory = (req, res) => {
-    Category.create(req.body)
+const addProduct = (req, res) => {
+    Product.create(req.body)
         .then(result => res.status(200).json({ result }))
         .catch(err => res.status(500).json( {msg: err}));
 }
 
-const getCategories = (req, res) => {
-    Category.find({})
+const getProducts = (req, res) => {
+    Product.find({})
     .then(result => res.status(200).json({ result }))
     .catch(err => res.status(404).json({error: err}));
 }
 
-const updateCategory = (req, res) => {
-    Category.findOneAndUpdate({ name: req.params.name },  req.body, {runValidators: true, new: true})
+const updateProduct = (req, res) => {
+    Product.findOneAndUpdate({ name: req.params.name },  req.body, {runValidators: true, new: true})
         .then(result => res.status(200).json({ result }))
         .catch(err => res.status(404).json({error: err}));
 }
 
-const deleteCategory = (req, res) => {
-    Category.findOneAndDelete({ name: req.params.name })
+const deleteProduct = (req, res) => {
+    Product.findOneAndDelete({ name: req.params.name })
     .then(result => res.status(200).json({ result }))
     .catch(err => res.status(404).json({error: err}));
 }
 
-const getCustomers = (req, res) => {
-    Customer.find({})
+const getLogs = (req, res) => {
+    Log.find({})
         .then(result => res.status(200).json({ result }))
-        .catch(err => res.status(404).json({error: err}));
+        .carch(err => res.status(500).json({ msg: err }););
 }
+
 
 module.exports = {
-    login,
-    addCategory,
-    getCategories,
-    updateCategory,
-    deleteCategory,
-    getCustomers,
+    addProduct,
+    getProducts,
+    updateProduct,
+    deleteProduct,
+    getLogs
 };

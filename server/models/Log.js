@@ -1,12 +1,12 @@
 const { model, Schema } = require("mongoose");
+const Product = require("./Product")
 
-const Customer = model("Customer", 
+const Log = model("Log", 
     new Schema({
         name: String,
         email: String,
-        password: String,
-        boughtItems: Array
+        product: Product
     })
 );
 
-module.exports = Customer;
+module.exports = Log;

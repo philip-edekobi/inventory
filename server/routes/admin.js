@@ -1,24 +1,21 @@
 const router = require("express").Router();
 
 const {
-    login,
-    addCategory,
-    getCategories,
-    updateCategory,
-    deleteCategory,
-    getCustomers,
+    addProduct,
+    getProducts,
+    updateProduct,
+    deleteProduct,
+    getLogs
 } = require("../controllers/admin.js");
 
-router.get('/:username/:password', login);
+router.get('/', getProducts);
 
-router.get('/', getCategories);
+router.post('/', addProduct);
 
-router.get("/users", getCustomers);
+router.put('/:name', updateProduct);
 
-router.post('/', addCategory);
+router.delete('/:name', deleteProduct);
 
-router.put('/:name', updateCategory );
-
-router.delete("/:name", deleteCategory);
+router.get('/logs', getLogs)
 
 module.exports = router;
