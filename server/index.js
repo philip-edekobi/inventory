@@ -5,6 +5,7 @@ const adminRoutes = require("./routes/admin.js");
 const userRoutes = require("./routes/customer.js")
 
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 const port = process.env.PORT || 8081
 
@@ -18,9 +19,6 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);
-
-
-require("dotenv").config();
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));

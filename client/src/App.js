@@ -5,7 +5,6 @@ import AdminView from "./components/AdminView";
 import UserView from "./components/UserView";
 import User from "./components/User"
 
-
 import{
     BrowserRouter as  Router,
     Routes,
