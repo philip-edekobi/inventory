@@ -5,7 +5,7 @@ const Log = model("Log",
     new Schema({
         name: String,
         email: String,
-        product: Product
+        product: Object
     })
 );
 

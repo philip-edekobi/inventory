@@ -6,11 +6,15 @@ const userRoutes = require("./routes/customer.js")
 
 const mongoose = require('mongoose');
 
+const port = process.env.PORT || 8081
+
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:8080",
+    origin: process.env.CORS_ORIGIN_URL,
     credentials: true,
 }));
+const path = require("path");
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);
@@ -18,6 +22,10 @@ app.use("/user", userRoutes);
 
 require("dotenv").config();
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 mongoose.connect(process.env.MONGO_URI)
-    .then(res => app.listen(8081, () => console.log("server is running on http://localhost:8081/")))
+    .then(res => app.listen(port, () => console.log(`server is running on http://localhost:${port}/`)))
     .catch(err => console.log(err));

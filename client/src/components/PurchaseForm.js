@@ -1,6 +1,22 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Button, TextField, Typography } from '@mui/material'
 
 export default function PurchaseForm(){
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+
+    const onNameChange = e => setName(e.target.value);
+    const onEmailChange = e => setEmail(e.target.value);
+    const navigate = useNavigate();
+
+    const submit = (e) => {
+        navigate(`/${name}/${email}`);
+        setName(""); setEmail("");
+        e.preventDefault();
+    }
+
     return (
         <form>
             <label htmlFor="name">
@@ -8,7 +24,8 @@ export default function PurchaseForm(){
             </label>
 
             <TextField name="name" id="name"
-             variant="standard" value=""/>
+            onChange={onNameChange}
+             variant="standard" value={name}/>
              
             <br />
             <br />
@@ -18,13 +35,14 @@ export default function PurchaseForm(){
             </label>
 
             <TextField name="email" id="email"
-             variant="standard" value=""/>
+            onChange={onEmailChange}
+             variant="standard" value={email}/>
 
 
             <br />
             <br />
 
-            <Button variant="contained">View Products</Button>
+            <Button variant="contained" onClick={submit}>View Products</Button>
         </form>
     );
 }

@@ -3,6 +3,7 @@ import HomePage from "./components/HomePage";
 import Admin from "./components/Admin";
 import AdminView from "./components/AdminView";
 import UserView from "./components/UserView";
+import User from "./components/User"
 
 
 import{
@@ -21,6 +22,7 @@ export default function App(){
                 <Route path="admin" element={<Admin />} />
                 <Route path="admin/:username/:password" element={<AdminView />} />
                 <Route path="/:name/:email/purchase" element={<UserView />} />
+                <Route path="/:name/:email" element={<User />} />
             </Routes>
         </main>
     </Router>
