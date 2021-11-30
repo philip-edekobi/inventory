@@ -18,7 +18,7 @@ export default function NavBar(){
                     Inventory
                 </Typography>
                 <Button color="inherit" onClick={() => navigate("/")} >Home</Button>
-                <Button color="inherit"onClick={handleClick}>Login(Admin)</Button>
+                <Button color="inherit"onClick={handleClick}>Admin</Button>
             </Toolbar>
         </AppBar>
     );

@@ -11,8 +11,8 @@ const port = process.env.PORT || 8081
 
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CORS_ORIGIN_URL,
-    credentials: true,
+    origin: "*" ,//process.env.CORS_ORIGIN_URL,
+    //credentials: true,
 }));
 const path = require("path");
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
@@ -21,7 +21,7 @@ app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 });
 
 mongoose.connect(process.env.MONGO_URI)
