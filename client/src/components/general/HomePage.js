@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material";
-import PurchaseForm from "./PurchaseForm"
+import PurchaseForm from "../user/PurchaseForm"
 
 export default function HomePage(){
     return (

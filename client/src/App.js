@@ -1,9 +1,9 @@
-import NavBar from "./components/NavBar";
-import HomePage from "./components/HomePage";
-import Admin from "./components/Admin";
-import AdminView from "./components/AdminView";
-import UserView from "./components/UserView";
-import User from "./components/User"
+import NavBar from "./components/general/NavBar";
+import HomePage from "./components/general/HomePage";
+import Admin from "./components/admin/Admin";
+import AdminView from "./components/admin/AdminView";
+import UserView from "./components/user/UserView";
+import User from "./components/user/User"
 
 import{
     BrowserRouter as  Router,
@@ -20,7 +20,7 @@ export default function App(){
                 <Route path="/" element={<HomePage />} />
                 <Route path="admin" element={<Admin />} />
                 <Route path="admin/:username/:password" element={<AdminView />} />
-                <Route path="/:name/:email/purchase" element={<UserView />} />
+                <Route path="/:name/:email/history" element={<UserView />} />
                 <Route path="/:name/:email" element={<User />} />
             </Routes>
         </main>

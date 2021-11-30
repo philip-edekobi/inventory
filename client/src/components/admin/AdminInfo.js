@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Typography, Button, Accordion, AccordionSummary, AccordionDetails, TextField } from "@mui/material";
 import  ExpandMoreIcon  from "@mui/icons-material/ExpandMore";
 import { nanoid } from "nanoid";
+import { Typography, Button, Accordion, AccordionSummary, AccordionDetails, TextField } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,21 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export default function AdminView(){
-    const { username, password } = useParams();
-
-    let allow = username === "admin" && password === "12345" ;
-
-    let component = allow ? <AdminInfo /> : <Error />
-
-    return (
-        <>
-          {component}  
-        </>
-    );
-}
-
-function AdminInfo(){
+export default function AdminInfo(){
     const [products, setProducts] = useState(null);
     const [logs, setLogs] = useState(null);
     const [name, setName] = useState("");
@@ -64,51 +49,79 @@ function AdminInfo(){
         e.preventDefault();
     }
 
-    function createData(name, email, product){ return {name, email, product}}
-    const rows = logs? logs.map(log => createData(log.name, log.email, log.product)) : [];
+    function deleteProduct(e){
+        axios.delete(`http://localhost:8081/admin/${e.target.name}`)
+        .then(res => loadProducts())
+        .then(products => setProducts(products))
+        .catch(err => console.log(err));
+    }
+
+    function createData(name, email, product, date){ return {name, email, product, date}}
+    const rows = logs? logs.map(log => createData(log.name, log.email, log.product, log.date)) : [];
 
     return (
         <>
             <Accordion>
+
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     id={nanoid()}
                 >
-                    <Typography variant="h6">Products</Typography>
-                    <form >
-                        <label htmlFor="product"></label>
-                        <br />
-                        <TextField style={{marginLeft: "40%"}}
-                         name="product" id="product" value={name}
-                         variant="standard" onChange={(e)=>setName(e.target.value) } />
-                    <Button style={{marginLeft: "100%"}} color="success"
-                    onClick={addProduct}
-                     variant="contained">
-                         Add
-                    </Button>
-                    </form>
+                    <div><Typography variant="h6">Products</Typography></div>
+
                 </AccordionSummary>
+
                 <AccordionDetails>
-                    <ul>
-                        {products && products.map((product, index) => <Product index={index} product={product} />)}
-                    </ul>
+
+                    <form style={{
+                        marginLeft:50
+                    }}>
+                        <label htmlFor="product"><Typography variant="body1">Add new product: </Typography></label>
+    
+                        <TextField name="product" id="product" value={name} variant="standard" onChange={(e)=>setName(e.target.value) } />
+
+                        <Button style={{margin: 10}} color="success" onClick={addProduct}
+                            variant="outlined"
+                        >
+                            Add
+                        </Button>
+                    </form>
+
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="left" ><Typography variant="body1">Product Name</Typography></TableCell>
+                                <TableCell align="center" ></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {products && products.map((product, index) => <Product index={index} product={product} deleteProduct={deleteProduct} />)}
+                            
+                        </TableBody>
+                    </Table>
+
                 </AccordionDetails>
+
             </Accordion>
+
             <Accordion>
+
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 id={nanoid()}
             >
                 <Typography variant="h6">Log History</Typography>
             </AccordionSummary>
+
             <AccordionDetails>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell allign="left">Name</TableCell>
-                            <TableCell align="right">Email&nbsp;</TableCell>
-                            <TableCell align="right">Product&nbsp;(g)</TableCell>
+                            <TableCell align="left">Name</TableCell>
+                            <TableCell align="center">Email&nbsp;</TableCell>
+                            <TableCell align="center">Product&nbsp;(g)</TableCell>
+                            <TableCell align="center">Date&nbsp;(g)</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -118,29 +131,21 @@ function AdminInfo(){
                     </TableBody>
                 </Table>
             </TableContainer>
+
             </AccordionDetails>
             </Accordion>
         </>
     );
 }
 
-function Error(){
-    const navigate = useNavigate();
-    return (
-    <div style = {{padding: 40,}}>
-      <Typography> You entered an incorrect password or username. </Typography>  
-      <Button variant="outlined" color="error" onClick={() => navigate("/admin")} >Go Back</Button>
-    </div>
-    );
-}
-
 function Product(props){
-    const { product, index } = props;
+    const { product, index, deleteProduct } = props;
 
     return (
-        <li key={index} style={{listStyleType: "*",}}>
-            <Typography>{product.name}</Typography>
-        </li>
+        <TableRow key={index} >
+            <TableCell><Typography>{product.name}</Typography></TableCell>
+            <TableCell><Button name={product.name} onClick={deleteProduct} variant="contained" color="error" >Delete</Button></TableCell>
+        </TableRow>
     );
 }
 
@@ -151,8 +156,9 @@ function Row(props) {
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="right">{row.email}</TableCell>
-                <TableCell align="right">{row.product.name}</TableCell>
+                <TableCell align="center">{row.email}</TableCell>
+                <TableCell align="center">{row.product.name}</TableCell>
+                <TableCell align="center">{row.product.date}</TableCell>
             </TableRow>
         </>
     );
