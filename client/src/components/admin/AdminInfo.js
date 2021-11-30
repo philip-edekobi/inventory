@@ -17,7 +17,8 @@ export default function AdminInfo(){
     const [name, setName] = useState("");
 
     async function loadProducts(){
-        let response = await axios.get("http://localhost:8081/admin/");
+        const newLocal = "http://localhost:8081/admin/";
+        let response = await axios.get(newLocal);
         response = response.data.result;
         return response;
     }
@@ -95,7 +96,8 @@ export default function AdminInfo(){
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {products && products.map((product, index) => <Product index={index} product={product} deleteProduct={deleteProduct} />)}
+                            {products && products.map((product, index) => 
+                            <Product index={index} product={product} deleteProduct={deleteProduct} />)}
                             
                         </TableBody>
                     </Table>
@@ -120,8 +122,8 @@ export default function AdminInfo(){
                         <TableRow>
                             <TableCell align="left">Name</TableCell>
                             <TableCell align="center">Email&nbsp;</TableCell>
-                            <TableCell align="center">Product&nbsp;(g)</TableCell>
-                            <TableCell align="center">Date&nbsp;(g)</TableCell>
+                            <TableCell align="center">Product</TableCell>
+                            <TableCell align="center">Date</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -144,7 +146,8 @@ function Product(props){
     return (
         <TableRow key={index} >
             <TableCell><Typography>{product.name}</Typography></TableCell>
-            <TableCell><Button name={product.name} onClick={deleteProduct} variant="contained" color="error" >Delete</Button></TableCell>
+            <TableCell><Button name={product.name} onClick={deleteProduct}
+             variant="contained" color="error" >Delete</Button></TableCell>
         </TableRow>
     );
 }
@@ -156,7 +159,7 @@ function Row(props) {
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="center">{row.email}</TableCell>
+                <TableCell align="center">{<b>{row.email}</b>}</TableCell>
                 <TableCell align="center">{row.product.name}</TableCell>
                 <TableCell align="center">{row.product.date}</TableCell>
             </TableRow>

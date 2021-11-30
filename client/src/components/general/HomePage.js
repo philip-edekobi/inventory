@@ -3,13 +3,12 @@ import PurchaseForm from "../user/PurchaseForm"
 
 export default function HomePage(){
     return (
-        <Box
+        <center><Box
             sx={{
                 paddingLeft: "10%",
                 paddingRight: "10%",
                 paddingTop: 3,
-                marginLeft: 35,
-                marginRight: 35,
+                marginTop: 5
             }}
         >
             <Typography variant="h5" gutterBottom component="main">
@@ -19,6 +18,6 @@ export default function HomePage(){
             <br />
 
             <PurchaseForm />
-        </Box>
+        </Box></center>
     );
 }

@@ -11,17 +11,9 @@ export default function HomePage(){
                 paddingLeft: "10%",
                 paddingRight: "10%",
                 paddingTop: 3,
-                marginLeft: 35,
-                marginRight: 35,
             }}
         >
-            <Typography variant="h5" gutterBottom component="main">
-                <span class="form-head">Log In</span>
-            </Typography>
-
-            <br />
-
-            <AdminLoginForm />
+            <center><AdminLoginForm /></center>
         </Box>
     );
 }

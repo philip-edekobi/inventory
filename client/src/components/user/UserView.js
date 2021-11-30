@@ -15,7 +15,7 @@ export default function UserView(){
     const [logs, setLogs] = useState(null);
 
     async function loadLogs(){
-        let response = await axios.get("http://localhost:8081/admin/logs");
+        let response = await axios.get(`http://localhost:8081/user/${name}`);
         response = response.data.result;
         return response;
     }
@@ -35,13 +35,13 @@ export default function UserView(){
             <Accordion>
                 <AccordionSummary
                 >
-                    <Typography variant="h6">History for {name} </Typography>
+                    <Typography variant="h6">History for {name[0].toUpperCase() + name.slice(1)} </Typography>
                 </AccordionSummary>
             </Accordion>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
-                        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                        <TableRow sx={{ '& > *': { borderBottom: 'unset', backgroundColor: '#3399cc' } }}>
                             <TableCell align="left">Product Name</TableCell>
                             <TableCell align="right">Date of Purchase</TableCell>
                         </TableRow>
