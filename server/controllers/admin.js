@@ -3,7 +3,7 @@ const Log = require("../models/Log");
 
 const addProduct = (req, res) => {
     Product.create(req.body)
-        .then(result => res.status(200).json({ result }))
+        .then(result => res.status(201).json({ result }))
         .catch(err => res.status(500).json( {msg: err}));
 }
 

@@ -141,10 +141,10 @@ export default function AdminInfo(){
 }
 
 function Product(props){
-    const { product, index, deleteProduct } = props;
+    const { product, deleteProduct } = props;
 
     return (
-        <TableRow key={index} >
+        <TableRow >
             <TableCell><Typography>{product.name}</Typography></TableCell>
             <TableCell><Button name={product.name} onClick={deleteProduct}
              variant="contained" color="error" >Delete</Button></TableCell>
