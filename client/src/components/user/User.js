@@ -48,7 +48,7 @@ export default function User(){
         let data = productNames.map(name => createData(name));
         for(let dataObj of data){
             axios.post(
-                "user/", 
+                "/user/", 
                 dataObj
             )
             .catch(err => console.log(err));
