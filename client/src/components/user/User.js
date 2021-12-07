@@ -19,7 +19,7 @@ export default function User(){
     }, []);
 
     async function loadProducts(){
-        let response = await axios.get("http://localhost:8081/admin/");
+        let response = await axios.get("http://localhost:80/admin/");
         response = response.data.result;
         return response;
     }
@@ -48,7 +48,7 @@ export default function User(){
         let data = productNames.map(name => createData(name));
         for(let dataObj of data){
             axios.post(
-                "http://localhost:8081/user/", 
+                "http://localhost:80/user/", 
                 dataObj
             )
             .catch(err => console.log(err));
