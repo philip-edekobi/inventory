@@ -15,7 +15,7 @@ export default function UserView(){
     const [logs, setLogs] = useState(null);
 
     async function loadLogs(){
-        let response = await axios.get(`http://localhost:8081/user/${name}`);
+        let response = await axios.get(`/user/${name}`);
         response = response.data.result;
         return response;
     }

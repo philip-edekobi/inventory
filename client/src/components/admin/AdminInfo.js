@@ -17,13 +17,13 @@ export default function AdminInfo(){
     const [name, setName] = useState("");
 
     async function loadProducts(){
-        const newLocal = "http://localhost:80/admin/";
+        const newLocal = "/admin/";
         let response = await axios.get(newLocal);
         response = response.data.result;
         return response;
     }
     async function loadLogs(){
-        let response = await axios.get("http://localhost:80/admin/logs");
+        let response = await axios.get("/admin/logs");
         response = response.data.result;
         return response;
     }
@@ -41,7 +41,7 @@ export default function AdminInfo(){
     }, []);
 
     const addProduct = (e) => {
-        axios.post("http://localhost:80/admin", {
+        axios.post("/admin/", {
             "name": name
         }).then(res => {
             setName("");
@@ -51,7 +51,7 @@ export default function AdminInfo(){
     }
 
     function deleteProduct(e){
-        axios.delete(`http://localhost:80/admin/${e.target.name}`)
+        axios.delete(`/admin/${e.target.name}`)
         .then(res => loadProducts())
         .then(products => setProducts(products))
         .catch(err => console.log(err));
